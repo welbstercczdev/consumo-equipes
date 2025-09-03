@@ -1,0 +1,283 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#0056b3">
+    <link rel="manifest" href="./manifest.json">
+    <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+    <title>Controle de Consumo</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.0/css/all.min.css">
+    <style>
+        :root{--cor-primaria:#007bff;--cor-primaria-escura:#0056b3;--cor-sucesso:#28a745;--cor-alerta:#ffc107;--cor-perigo:#dc3545;--cor-fundo:#f4f7f9;--cor-texto:#333;--cor-borda:#dee2e6;--borda-radius:12px;--sombra:0 4px 15px rgba(0,0,0,.07)}*,::before,::after{box-sizing:border-box}body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;margin:0;background-color:var(--cor-fundo);color:var(--cor-texto);-webkit-tap-highlight-color:transparent}.main-container{padding:15px;padding-bottom:170px;max-width:800px;margin:0 auto}.header{text-align:center;color:var(--cor-primaria-escura);margin-bottom:20px}.header h1{margin:0;font-size:1.8rem}.session-panel{background-color:#fff;padding:20px;border-radius:var(--borda-radius);margin-bottom:20px;box-shadow:var(--sombra)}.session-panel h2{margin:0 0 15px;font-size:1.2rem;display:flex;align-items:center;gap:10px}.session-info{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:15px}.form-group{margin-bottom:15px}label{font-weight:600;font-size:.85rem;margin-bottom:5px;display:block}select,input{width:100%;padding:12px;border:1px solid var(--cor-borda);border-radius:8px;font-size:1rem}input:focus,select:focus{border-color:var(--cor-primaria);box-shadow:0 0 0 2px rgba(0,123,255,.25);outline:0}#lancamentos-container{display:grid;gap:15px}.lancamento-card{background-color:#fff;border-radius:var(--borda-radius);box-shadow:var(--sombra);border-left:5px solid;transition:transform .2s ease-in-out}.card-body{padding:15px}.card-header{display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:10px}.card-title{margin:0;font-size:1.2rem}.card-subtitle{margin:0;color:#6c757d;font-size:.9rem}.card-consumo{display:grid;grid-template-columns:1fr 1fr;gap:15px;margin-top:15px}.card-consumo input{text-align:center;font-weight:600;font-size:1.1rem}.card-footer{display:flex;justify-content:space-between;align-items:center;padding:10px 15px;background:var(--cor-fundo);border-top:1px solid var(--cor-borda)}.status-badge{padding:5px 10px;border-radius:15px;font-size:.8rem;font-weight:700;color:#fff}.status-pending{border-color:var(--cor-alerta)}.status-pending .status-badge{background-color:var(--cor-alerta);color:#333}.status-ready{border-color:var(--cor-sucesso)}.status-ready .status-badge{background-color:var(--cor-sucesso)}.card-actions button{background:0 0;border:none;font-size:1.3rem;padding:5px;cursor:pointer}.action-edit{color:var(--cor-alerta)}.action-complete{color:var(--cor-sucesso)}.action-delete{color:var(--cor-perigo)}.action-complete:disabled{color:#ccc}.fab{position:fixed;bottom:90px;right:20px;width:60px;height:60px;background-color:var(--cor-primaria);color:#fff;border-radius:50%;border:none;font-size:1.8rem;display:flex;align-items:center;justify-content:center;box-shadow:0 6px 20px rgba(0,123,255,.4);z-index:1000}.modal-overlay{position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,.6);display:flex;align-items:center;justify-content:center;opacity:0;visibility:hidden;transition:opacity .3s,visibility .3s;z-index:2000}.modal-overlay.visible{opacity:1;visibility:visible}.modal-content{background:#fff;padding:25px;border-radius:var(--borda-radius);width:90%;max-width:500px;transform:scale(.95);transition:transform .3s}.modal-overlay.visible .modal-content{transform:scale(1)}.modal-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:20px}.modal-header h2{font-size:1.3rem;margin:0;border:none}.modal-header .close-btn{font-size:1.5rem;background:0 0;border:none;cursor:pointer}.modal-footer{margin-top:20px;display:flex;justify-content:flex-end;gap:10px}.btn{padding:12px 20px;border:none;border-radius:8px;font-size:1rem;cursor:pointer}.btn-primary{background-color:var(--cor-primaria);color:#fff}.btn-success{background-color:var(--cor-sucesso);color:#fff}.btn-danger{background-color:var(--cor-perigo);color:#fff}.btn-secondary{background-color:#6c757d;color:#fff}.bottom-actions{position:fixed;bottom:0;left:0;right:0;background:#fff;padding:15px;text-align:center;box-shadow:0 -4px 15px rgba(0,0,0,.07);z-index:999}.btn-submit-all{background-color:var(--cor-sucesso);color:#fff;border:none;border-radius:50px;padding:15px 25px;font-size:1.1rem;font-weight:600;width:100%;max-width:400px}.error-message{color:var(--cor-perigo);font-weight:500;text-align:center;min-height:20px;font-size:.9rem}.autocomplete-container{position:relative}.autocomplete-list{position:absolute;top:100%;left:0;right:0;border:1px solid #ddd;background-color:#fff;z-index:2001;max-height:150px;overflow-y:auto;list-style:none;padding:0;margin:0;box-sizing:border-box;border-radius:8px;box-shadow:var(--sombra)}.autocomplete-item{padding:10px;cursor:pointer}.autocomplete-item:hover{background-color:#f0f0f0}#toast-container{position:fixed;bottom:85px;left:50%;transform:translateX(-50%);z-index:3000;display:flex;flex-direction:column;align-items:center;gap:10px;pointer-events:none}.toast{padding:12px 20px;border-radius:25px;color:#fff;font-weight:600;box-shadow:0 4px 12px rgba(0,0,0,.15);opacity:0;transform:translateY(20px);transition:opacity .4s,transform .4s}.toast.success{background-color:var(--cor-sucesso)}.toast.error{background-color:var(--cor-perigo)}.toast.info{background-color:#17a2b8}.toast.show{opacity:1;transform:translateY(0)}.auth-container{width:100%;max-width:400px;margin:40px auto;padding:20px}.auth-view{display:none}.auth-view.visible{display:block}#app-view-container{display:none}#app-view-container.visible{display:block}.form-link{display:block;text-align:right;margin-top:10px;color:var(--cor-primaria);font-size:.9rem;cursor:pointer}.header-user{font-size:.9rem;color:#6c757d;display:flex;align-items:center;justify-content:center;gap:15px;margin-top:5px;margin-bottom:-10px}.header-user i{cursor:pointer;font-size:1.2rem}.header-user #change-password-main-btn{color:var(--cor-primaria-escura)}.header-user #logout-btn{color:var(--cor-perigo)}
+    </style>
+</head>
+<body>
+
+<div id="auth-container" class="auth-view visible">
+    <div id="login-view" class="auth-container">
+        <header class="header"><h1>Acessar Sistema</h1></header>
+        <div class="session-panel">
+            <div class="form-group"><label for="login-email">Email</label><input type="email" id="login-email" autocomplete="email"></div>
+            <div class="form-group"><label for="login-password">Senha</label><input type="password" id="login-password" autocomplete="current-password"></div>
+            <div class="error-message" id="login-error"></div>
+            <button class="btn btn-primary" id="login-btn" style="width:100%; margin-top:15px;">Entrar</button>
+        </div>
+    </div>
+</div>
+
+<div id="app-view-container">
+    <div class="main-container">
+        <header class="header">
+            <h1>Controle de Consumo</h1>
+            <div class="header-user">
+                <span id="user-email-display"></span>
+                <i class="fa-solid fa-download" id="install-btn" title="Instalar Aplicativo" style="display: none; color: var(--cor-primaria-escura);"></i>
+                <i class="fa-solid fa-key" id="change-password-main-btn" title="Alterar Senha"></i>
+                <i class="fa-solid fa-right-from-bracket" id="logout-btn" title="Sair"></i>
+            </div>
+        </header>
+        <div style="text-align: center; margin-bottom: 20px;">
+            <button id="install-button" class="btn btn-secondary" style="display: none; background-color: #6c757d; color: white;"><i class="fa-solid fa-download"></i> Instalar Aplicativo</button>
+        </div>
+        <div class="session-panel">
+            <div class="session-info">
+                <div class="form-group"><label for="sessao-data">Data</label><input type="date" id="sessao-data"></div>
+                <div class="form-group"><label for="sessao-equipe">Equipe</label><select id="sessao-equipe"><option value="">Carregando...</option></select></div>
+                <div class="form-group"><label for="sessao-produto">Produto</label><select id="sessao-produto"><option value="Natular">Natular</option><option value="Vectobac">Vectobac</option></select></div>
+            </div>
+        </div>
+        <div id="lancamentos-container"></div>
+    </div>
+    <button class="fab" id="fab-add"><i class="fa-solid fa-plus"></i></button>
+    <div class="bottom-actions"><button class="btn-submit-all" id="enviar-button" disabled><i class="fa-solid fa-paper-plane"></i> Enviar (0)</button></div>
+</div>
+
+<div class="modal-overlay" id="add-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>Novo Lançamento</h2><button class="close-btn" data-modal-id="add-modal">×</button></div>
+        <div class="modal-body">
+            <div class="form-group autocomplete-container"><label for="modal-aplicador">Agente</label><input type="text" id="modal-aplicador" autocomplete="off"><ul id="modal-autocomplete-list" class="autocomplete-list" style="display: none;"></ul></div>
+            <div class="form-group"><label for="modal-consumo">Consumo</label><input type="text" id="modal-consumo" inputmode="decimal" placeholder="Ex: 2,5"></div>
+            <div class="error-message" id="modal-error"></div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-secondary close-btn" data-modal-id="add-modal">Cancelar</button><button class="btn btn-primary" id="modal-save-btn">Salvar</button></div>
+    </div>
+</div>
+<div class="modal-overlay" id="edit-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>Editar Lançamento</h2><button class="close-btn" data-modal-id="edit-modal">×</button></div>
+        <div class="modal-body">
+            <div class="form-group autocomplete-container"><label for="edit-modal-aplicador">Agente</label><input type="text" id="edit-modal-aplicador" autocomplete="off"><ul id="edit-modal-autocomplete-list" class="autocomplete-list" style="display: none;"></ul></div>
+            <div class="form-group"><label for="edit-modal-consumo">Consumo</label><input type="text" id="edit-modal-consumo" inputmode="decimal" placeholder="Ex: 2,5"></div>
+            <div class="error-message" id="edit-modal-error"></div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-secondary close-btn" data-modal-id="edit-modal">Cancelar</button><button class="btn btn-primary" id="edit-modal-save-btn">Salvar Alterações</button></div>
+    </div>
+</div>
+<div class="modal-overlay" id="change-password-modal">
+    <div class="modal-content">
+        <div class="modal-header"><h2>Alterar Senha</h2><button class="close-btn" data-modal-id="change-password-modal">×</button></div>
+        <div class="modal-body">
+            <div class="form-group"><label for="current-password">Senha Atual</label><input type="password" id="current-password" autocomplete="current-password"></div>
+            <div class="form-group"><label for="new-password">Nova Senha (mínimo 6 caracteres)</label><input type="password" id="new-password" autocomplete="new-password"></div>
+            <div class="form-group"><label for="confirm-password">Confirmar Nova Senha</label><input type="password" id="confirm-password" autocomplete="new-password"></div>
+            <div class="error-message" id="change-password-error"></div>
+        </div>
+        <div class="modal-footer"><button class="btn btn-secondary close-btn" data-modal-id="change-password-modal">Cancelar</button><button class="btn btn-primary" id="change-password-save-btn">Salvar Nova Senha</button></div>
+    </div>
+</div>
+<div id="toast-container"></div>
+    
+<script>
+document.addEventListener('DOMContentLoaded', function () {
+    const APPS_SCRIPT_URL_CONSUMO = 'https://script.google.com/macros/s/AKfycbyzBWnlVoRxPFnPyhKcnRC3kMwNr1U-VT0pCXtOswcnpTyHysXZWZkHx-tj-inKyx1r/exec'; // <-- IMPORTANTE
+    
+    const DATA_KEY_PREFIX = 'consumo_Lancamentos_v19_';
+    const SESSION_KEY_PREFIX = 'consumo_Sessao_v19_';
+    const AUTH_KEY = 'consumo_Auth_v19';
+
+    let DATA_KEY = '', SESSION_KEY = '';
+    let lancamentos = [], allMembros = [];
+
+    const selectors = {
+        authContainer: document.getElementById('auth-container'), appContainer: document.getElementById('app-view-container'),
+        loginBtn: document.getElementById('login-btn'), loginError: document.getElementById('login-error'),
+        logoutBtn: document.getElementById('logout-btn'), userEmailDisplay: document.getElementById('user-email-display'),
+        lancamentosContainer: document.getElementById('lancamentos-container'), fabAdd: document.getElementById('fab-add'),
+        enviarButton: document.getElementById('enviar-button'), sessaoDataInput: document.getElementById('sessao-data'),
+        sessaoEquipeSelect: document.getElementById('sessao-equipe'), sessaoProdutoSelect: document.getElementById('sessao-produto'),
+        modalSaveBtn: document.getElementById('modal-save-btn'), modalError: document.getElementById('modal-error'),
+        modalAplicador: document.getElementById('modal-aplicador'), modalConsumo: document.getElementById('modal-consumo'),
+        modalAutocompleteList: document.getElementById('modal-autocomplete-list'), installButton: document.getElementById('install-button'),
+        modalEditSaveBtn: document.getElementById('edit-modal-save-btn'), modalEditError: document.getElementById('edit-modal-error'),
+        modalEditAplicador: document.getElementById('edit-modal-aplicador'), modalEditConsumo: document.getElementById('edit-modal-consumo'),
+        modalEditAutocompleteList: document.getElementById('edit-modal-autocomplete-list'), changePasswordMainBtn: document.getElementById('change-password-main-btn'),
+        changePasswordSaveBtn: document.getElementById('change-password-save-btn'), changePasswordError: document.getElementById('change-password-error')
+    };
+
+    function checkSessionOnLoad() { const authData = JSON.parse(localStorage.getItem(AUTH_KEY)); if (authData && authData.token) { initializeApp(authData.email); } else { showLoginView(); } }
+    function initializeApp(email) {
+        selectors.authContainer.classList.remove('visible'); selectors.appContainer.classList.add('visible');
+        selectors.userEmailDisplay.textContent = email;
+        const uid = email.replace(/[^a-zA-Z0-9]/g, '');
+        DATA_KEY = `${DATA_KEY_PREFIX}${uid}`; SESSION_KEY = `${SESSION_KEY_PREFIX}${uid}`;
+        lancamentos = JSON.parse(localStorage.getItem(DATA_KEY)) || [];
+        carregarOpcoes();
+    }
+    function showLoginView() { selectors.appContainer.classList.remove('visible'); selectors.authContainer.classList.add('visible'); localStorage.removeItem(AUTH_KEY); }
+    function showToast(message, type = 'success') { const c = document.getElementById('toast-container'); if (!c) return; const t = document.createElement('div'); t.className = `toast ${type}`; t.textContent = message; c.appendChild(t); setTimeout(() => t.classList.add('show'), 100); setTimeout(() => { t.classList.remove('show'); t.addEventListener('transitionend', () => t.remove()); }, 4000); }
+    const toggleGenericModal = (id, show) => { const m = document.getElementById(id); if (!m) return; const h = () => { m.classList.remove('visible'); setTimeout(() => m.style.display = 'none', 300); }; if (show) { m.style.display = 'flex'; setTimeout(() => m.classList.add('visible'), 10); m.querySelectorAll('.close-btn').forEach(b => b.addEventListener('click', h, { once: true })); m.addEventListener('click', (e) => { if (e.target === m) h(); }, { once: true }); } else h(); };
+    async function apiCall(action, payload = {}) {
+        const formData = new URLSearchParams(); formData.append('action', action);
+        for (const key in payload) formData.append(key, payload[key]);
+        try {
+            const response = await fetch(APPS_SCRIPT_URL_CONSUMO, { method: 'POST', body: formData, mode: 'cors' });
+            const result = await response.json();
+            if (!response.ok || result.status !== 'success') throw new Error(result.message || 'Erro desconhecido.');
+            return result;
+        } catch (error) { console.error(`Erro na ação '${action}':`, error); throw error; }
+    }
+    
+    // --- LÓGICA PRINCIPAL DO APP ---
+    async function carregarOpcoes() {
+        const authData = JSON.parse(localStorage.getItem(AUTH_KEY));
+        if (!authData || !authData.token) return showLoginView();
+        
+        try {
+            const result = await apiCall('getConfigData', { token: authData.token });
+            const configData = result.data;
+            
+            if (configData && configData.equipes) {
+                selectors.sessaoEquipeSelect.innerHTML = '<option value="">Selecione...</option>'; 
+                Object.keys(configData.equipes).sort().forEach(e => selectors.sessaoEquipeSelect.add(new Option(e, e))); 
+                allMembros = [...(configData.todos_membros || [])].sort(); 
+            }
+            carregarSessao(); 
+            renderLancamentos();
+        } catch (err) { 
+            console.error("Erro ao carregar configurações:", err); 
+            showToast('Falha ao carregar dados. Tente novamente.', 'error');
+            if (err.message.includes("Sessão inválida")) showLoginView();
+        }
+    }
+    const salvarDados = () => localStorage.setItem(DATA_KEY, JSON.stringify(lancamentos));
+    const carregarSessao = () => { const s = JSON.parse(localStorage.getItem(SESSION_KEY)) || {}; selectors.sessaoDataInput.value = s.data || new Date().toISOString().split('T')[0]; selectors.sessaoEquipeSelect.value = s.equipe || ''; selectors.sessaoProdutoSelect.value = s.produto || 'Natular'; };
+    const salvarSessao = () => localStorage.setItem(SESSION_KEY, JSON.stringify({ data: selectors.sessaoDataInput.value, equipe: selectors.sessaoEquipeSelect.value, produto: selectors.sessaoProdutoSelect.value }));
+    
+    function renderLancamentos() {
+        selectors.lancamentosContainer.innerHTML = '';
+        if (lancamentos.length === 0) { selectors.lancamentosContainer.innerHTML = '<p style="text-align:center; color:#6c757d;">Nenhum lançamento.</p>'; }
+        lancamentos.sort((a, b) => a.agente.localeCompare(b.agente)).forEach((item, index) => {
+            const card = document.createElement('div');
+            card.className = `lancamento-card status-${item.status}`; card.dataset.index = index;
+            const isReady = item.status === 'ready';
+            let actionsHtml = isReady ? `<button class="action-edit" data-action="unmark" title="Pendente"><i class="fa-solid fa-pencil"></i></button>` : `<button class="action-edit" data-action="edit" title="Editar"><i class="fa-solid fa-pencil"></i></button><button class="action-complete" data-action="complete" title="Pronto"><i class="fa-solid fa-check"></i></button>`;
+            const consumoDisplay = String(item.consumo).replace('.', ',');
+            card.innerHTML = `<div class="card-body"><div class="card-header"><div><h3 class="card-title">${item.agente}</h3><p class="card-subtitle">Consumo: ${consumoDisplay}</p></div></div></div><div class="card-footer"><span class="status-badge">${isReady?'Pronto':'Pendente'}</span><div class="card-actions">${actionsHtml}<button class="action-delete" data-action="delete" title="Excluir"><i class="fa-solid fa-trash"></i></button></div></div>`;
+            selectors.lancamentosContainer.appendChild(card);
+        });
+        atualizarContadorEnvio(); salvarDados();
+    }
+    function atualizarContadorEnvio() { const prontos = lancamentos.filter(l => l.status === 'ready').length; selectors.enviarButton.disabled = prontos === 0; selectors.enviarButton.innerHTML = `<i class="fa-solid fa-paper-plane"></i> Enviar (${prontos})`; }
+
+    // --- LISTENERS ---
+    selectors.loginBtn.addEventListener('click', async () => {
+        const email = document.getElementById('login-email').value; const password = document.getElementById('login-password').value;
+        selectors.loginError.textContent = ''; selectors.loginBtn.disabled = true;
+        try {
+            const result = await apiCall('login', { email, password });
+            localStorage.setItem(AUTH_KEY, JSON.stringify({ email: result.email, token: result.token }));
+            initializeApp(result.email);
+        } catch (error) { selectors.loginError.textContent = error.message; } finally { selectors.loginBtn.disabled = false; }
+    });
+    selectors.logoutBtn.addEventListener('click', () => { showLoginView(); showToast('Você saiu da sua conta.', 'info'); });
+    selectors.changePasswordMainBtn.addEventListener('click', () => {
+        document.getElementById('current-password').value = ''; document.getElementById('new-password').value = '';
+        document.getElementById('confirm-password').value = ''; selectors.changePasswordError.textContent = '';
+        toggleGenericModal('change-password-modal', true);
+    });
+    selectors.changePasswordSaveBtn.addEventListener('click', async () => {
+        const oldPassword = document.getElementById('current-password').value, newPassword = document.getElementById('new-password').value, confirmPassword = document.getElementById('confirm-password').value;
+        const errorDiv = selectors.changePasswordError; errorDiv.textContent = '';
+        if (!oldPassword || !newPassword || !confirmPassword) return errorDiv.textContent = 'Todos os campos são obrigatórios.';
+        if (newPassword.length < 6) return errorDiv.textContent = 'A nova senha deve ter no mínimo 6 caracteres.';
+        if (newPassword !== confirmPassword) return errorDiv.textContent = 'As novas senhas não coincidem.';
+        const authData = JSON.parse(localStorage.getItem(AUTH_KEY));
+        if (!authData || !authData.token) return showLoginView();
+        selectors.changePasswordSaveBtn.disabled = true;
+        try {
+            const result = await apiCall('changePassword', { token: authData.token, oldPassword: oldPassword, newPassword: newPassword });
+            toggleGenericModal('change-password-modal', false);
+            showToast(result.message, 'success');
+            setTimeout(showLoginView, 1500);
+        } catch (error) { errorDiv.textContent = error.message; } finally { selectors.changePasswordSaveBtn.disabled = false; }
+    });
+    selectors.fabAdd.addEventListener('click', () => { selectors.modalError.textContent = ''; selectors.modalAplicador.value = ''; selectors.modalConsumo.value = ''; toggleGenericModal('add-modal', true); });
+    selectors.sessaoDataInput.addEventListener('change', salvarSessao); selectors.sessaoEquipeSelect.addEventListener('change', salvarSessao); selectors.sessaoProdutoSelect.addEventListener('change', salvarSessao);
+    selectors.lancamentosContainer.addEventListener('click', (e) => {
+        const btn = e.target.closest('button[data-action]'); if (!btn) return;
+        const idx = e.target.closest('.lancamento-card').dataset.index; const action = btn.dataset.action;
+        if (action === 'delete') { lancamentos.splice(idx, 1); showToast('Removido.', 'info'); }
+        else if (action === 'complete') { lancamentos[idx].status = 'ready'; }
+        else if (action === 'unmark') { lancamentos[idx].status = 'pending'; }
+        else if (action === 'edit') {
+            const lancamento = lancamentos[idx]; selectors.modalEditAplicador.value = lancamento.agente;
+            selectors.modalEditConsumo.value = String(lancamento.consumo).replace('.', ',');
+            selectors.modalEditError.textContent = ''; selectors.modalEditSaveBtn.dataset.index = idx;
+            toggleGenericModal('edit-modal', true); return;
+        } renderLancamentos();
+    });
+    function handleSave(isEdit = false) {
+        const idx = isEdit ? selectors.modalEditSaveBtn.dataset.index : undefined;
+        const aplicadorEl = isEdit ? selectors.modalEditAplicador : selectors.modalAplicador, consumoEl = isEdit ? selectors.modalEditConsumo : selectors.modalConsumo, errorEl = isEdit ? selectors.modalEditError : selectors.modalError;
+        const agente = aplicadorEl.value.trim(), consumoStr = consumoEl.value.trim().replace(',', '.'), sData = selectors.sessaoDataInput.value, sEquipe = selectors.sessaoEquipeSelect.value, sProduto = selectors.sessaoProdutoSelect.value;
+        errorEl.textContent = '';
+        if (!sData || !sEquipe || !sProduto) return showToast('Defina Data, Equipe e Produto!', 'error');
+        if (!agente || !consumoStr) return errorEl.textContent = 'Preencha Agente e Consumo.';
+        const consumoNum = parseFloat(consumoStr); if (isNaN(consumoNum)) return errorEl.textContent = 'Consumo inválido.';
+        const chave = `${sData}-${sEquipe}-${sProduto}-${agente}`;
+        if (lancamentos.some((l, i) => l.chave === chave && i != idx)) return errorEl.textContent = 'Este agente já possui um lançamento para hoje.';
+        const [y, m, d] = sData.split('-');
+        const data = { chave, data: sData, data_fmt: `${d}/${m}/${y}`, equipe: sEquipe, produto: sProduto, agente, consumo: consumoNum, status: 'pending' };
+        if (isEdit) { lancamentos[idx] = { ...lancamentos[idx], ...data }; } else { lancamentos.push(data); }
+        renderLancamentos(); toggleGenericModal(isEdit ? 'edit-modal' : 'add-modal', false); if (isEdit) showToast('Atualizado!', 'success');
+    }
+    selectors.modalSaveBtn.addEventListener('click', () => handleSave(false)); selectors.modalEditSaveBtn.addEventListener('click', () => handleSave(true));
+    function setupAutocomplete(inputEl, listEl) {
+        inputEl.addEventListener('input', function() {
+            const v = this.value.toLowerCase(); listEl.innerHTML = ''; listEl.style.display = 'none';
+            if (v.length > 0 && allMembros.length > 0) {
+                const f = allMembros.filter(m => m.toLowerCase().includes(v));
+                if (f.length > 0) {
+                    f.forEach(m => { const i = document.createElement('li'); i.textContent = m; i.className = 'autocomplete-item'; i.addEventListener('click', () => { inputEl.value = m; listEl.style.display = 'none'; }); listEl.appendChild(i); });
+                    listEl.style.display = 'block';
+                }
+            }
+        });
+    }
+    setupAutocomplete(selectors.modalAplicador, selectors.modalAutocompleteList); setupAutocomplete(selectors.modalEditAplicador, selectors.modalEditAutocompleteList);
+    document.addEventListener('click', (e) => { if (!e.target.closest('.autocomplete-container')) { selectors.modalAutocompleteList.style.display = 'none'; selectors.modalEditAutocompleteList.style.display = 'none'; } });
+    selectors.enviarButton.addEventListener('click', async () => {
+        const authData = JSON.parse(localStorage.getItem(AUTH_KEY));
+        if (!authData || !authData.token) { showLoginView(); return showToast('Sessão expirada. Faça login.', 'error'); }
+        const prontos = lancamentos.filter(l => l.status === 'ready'); if (prontos.length === 0) return;
+        selectors.enviarButton.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Enviando...'; selectors.enviarButton.disabled = true;
+        try {
+            await apiCall('submitData', { token: authData.token, lancamentos: JSON.stringify(prontos) });
+            lancamentos = lancamentos.filter(l => l.status !== 'ready');
+            renderLancamentos(); showToast(`${prontos.length} lançamento(s) enviado(s)!`, 'success');
+        } catch (error) { showToast(error.message, 'error'); if (error.message.includes("Sessão inválida")) showLoginView(); } finally { atualizarContadorEnvio(); }
+    });
+
+    checkSessionOnLoad();
+});
+</script>
+
+<script>
+    if('serviceWorker'in navigator)window.addEventListener('load',()=>{navigator.serviceWorker.register('./service-worker.js').then(r=>console.log('SW registrado:',r.scope)).catch(e=>console.error('Falha SW:',e))});let deferredPrompt;const installButton=document.getElementById('install-button');window.addEventListener('beforeinstallprompt',e=>{e.preventDefault();deferredPrompt=e;if(installButton)installButton.style.display='inline-flex'});if(installButton)installButton.addEventListener('click',e=>{installButton.style.display='none';deferredPrompt.prompt();deferredPrompt.userChoice.then(c=>{deferredPrompt=null})});window.addEventListener('appinstalled',e=>{if(installButton)installButton.style.display='none';deferredPrompt=null});
+</script>
+
+</body>
+</html>```
+
